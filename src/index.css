@@ -51,3 +51,13 @@ code {
 .disp-status{
   width: 10%;
 }
+
+.disp-delete{
+  background-color:aliceblue;
+  border-radius: 50px 20px;
+  cursor: pointer;
+  width: 100px;
+  height: 25px;
+  text-align: center;
+  border: 1px solid black;
+}
