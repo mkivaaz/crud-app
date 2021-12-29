@@ -81,18 +81,23 @@ code {
 .disp-status{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 10%;
   
 }
 
 .disp-delete{
-  background-color:aliceblue;
-  border-radius: 50px 20px;
+  background-color:transparent;
+  border: transparent;
   cursor: pointer;
   width: auto;
   padding: 5px;
   height: auto;
   text-align: center;
+}
+
+.disp-delete:hover{
+  font-weight: bold;
 }
 
 .form{

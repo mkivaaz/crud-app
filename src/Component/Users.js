@@ -1,14 +1,23 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {api, useApi} from '../Hooks/useApi'
-import { API_KEY, BASE_URL } from './Constants';
+import { actionCreators } from '../Redux/reduxIndex';
 
 
 export default function Users() {
     const users = useApi();
     const queryClient = useQueryClient();
-    const [sort, setSort] = useState("name")
+
+    // Redux
+    const state = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const {sortBy} = bindActionCreators(actionCreators, dispatch)
+
+    // React Query
     const mutation = useMutation(async (id) => {return await api.delete(`/${id}`)}, 
             {
                 onSuccess: () => {
@@ -16,6 +25,8 @@ export default function Users() {
                     queryClient.invalidateQueries()                
                 },              
             })
+
+
 
     const handleClick = evt => {
         let id = evt.target.id
@@ -26,8 +37,9 @@ export default function Users() {
     }
 
     const handleSort = evt => {
-        setSort(evt.target.id)
+        sortBy(evt.target.id)
     }
+
 
     return (
         <div className='user-container'>
@@ -43,7 +55,7 @@ export default function Users() {
                 <div className='disp-status' id='status' onClick={handleSort}>Status</div>
             </div>
 
-            {users  && users.data.sort((a,b) => a[sort].localeCompare(b[sort]))
+            {users  && users.data.sort((a,b) => a[state.sort].localeCompare(b[state.sort]))
             .map(user =>{
                 
                 return(

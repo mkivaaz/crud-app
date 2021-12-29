@@ -5,7 +5,8 @@ import { API_KEY, BASE_URL } from '../Component/Constants'
 export const api = axios.create({
     baseURL: BASE_URL,
     headers:{
-        'Authorization': 'Bearer ' + API_KEY
+        'Authorization':  'Bearer ' + API_KEY,
+        'Content-Type':  'application/json',
     },
     
 })

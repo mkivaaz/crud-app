@@ -3,31 +3,25 @@ import { Form, Formik } from 'formik';
 import React from 'react'
 import { useMutation, useQueryClient } from 'react-query';
 import * as Yup from 'yup'
-import useApi from '../Hooks/useApi';
+import useApi, { api } from '../Hooks/useApi';
 import { API_KEY, BASE_URL } from './Constants';
 import InputCus from './InputCus';
 
-const api = axios.create({
-    baseURL: BASE_URL,
-    headers:{
-        'Authorization':  'Bearer ' + API_KEY
-    }
-})
+
 
 function AddUser() {
     const queryClient = useQueryClient();
-    const mutation = useMutation(async (user) => {return await api.post('/')}, 
-            {
-                onSuccess: () => {
-                    
-                    queryClient.invalidateQueries()                
-                },              
-            })
+    const mutation = useMutation( (user) => {return api.post('/', user).then(response => {
+        console.log("Added ID:",response.data.data.id)
+  }).catch(error => {
+        console.log(error.response)
+  })
+  })
 
     const initialValues = {
         name: "",
-        email: "",
         gender: "",
+        email: "",
         status: "",
     }
 
@@ -36,12 +30,12 @@ function AddUser() {
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
                 .required('Required'),
-        email: Yup.string()
-                .email('Must be a valid email')
-                .required('Required'),
         gender: Yup.string()
                 .min(2, 'Too Short!')
                 .max(6, 'Too Long!')
+                .required('Required'),
+        email: Yup.string()
+                .email('Must be a valid email')
                 .required('Required'),
         status: Yup.string()
                 .min(2, 'Too Short!')
@@ -51,8 +45,14 @@ function AddUser() {
     });
 
     const handleUser = (values) => {
-        console.log(JSON.stringify(values))
-        mutation.mutate(values);
+        let user = {
+            name: values.name,
+            gender: values.gender,
+            email: values.email,
+            status: values.status
+        }
+
+        mutation.mutate(JSON.stringify(values));
     } 
 
 
