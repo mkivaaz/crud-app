@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <TopBar/>
-        <AddUser/>
+        {/* <AddUser/> */}
       </header>
       
       <Users />

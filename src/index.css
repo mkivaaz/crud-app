@@ -1,5 +1,12 @@
+:root{
+  --primary: rgb(122, 122, 122)
+}
+
 body {
   margin: 2%;
+  display: flexbox;
+  flex-direction: column;
+  justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -30,34 +37,80 @@ code {
   height: 100%;
 }
 
+.disp-legend{
+  display: flex;
+  padding: 15px;
+  justify-content: flex-start;
+  box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.45);
+}
+
+.disp-legend div{
+  font-size: larger;
+  cursor: pointer;
+}
+
+.disp-legend div:hover{
+  font-weight: bold;
+}
+
 .disp-container{
   display: flex;
   padding: 15px;
   justify-content: flex-start;
+  box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
 }
 
 .disp-name{
   width: 50%;
+  border-right: 1px solid var(--primary); 
+  margin-right: 5px;
 }
 
 .disp-email{
   width: 20%;
+  border-right: 1px solid var(--primary); 
+  margin-right: 5px;
 }
 
 .disp-gender{
-  width: 10%;
+  width: 20%;
+  border-right: 1px solid var(--primary); 
+  margin-right: 5px;
 }
 
 .disp-status{
+  display: flex;
+  justify-content: space-between;
   width: 10%;
+  
 }
 
 .disp-delete{
   background-color:aliceblue;
   border-radius: 50px 20px;
   cursor: pointer;
-  width: 100px;
-  height: 25px;
+  width: auto;
+  padding: 5px;
+  height: auto;
   text-align: center;
-  border: 1px solid black;
+}
+
+.form{
+  display: flex;
+  justify-content: center;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.form-input{
+  width: 50vh;
+}
+
+.btn-Add{
+  width: 51vh;
+}
+
+.error-msg{
+  color:crimson;
+  margin-bottom: 0px;
 }
