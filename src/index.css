@@ -37,6 +37,8 @@ code {
   height: 100%;
 }
 
+/*    List      */
+
 .disp-legend{
   display: flex;
   padding: 15px;
@@ -100,6 +102,8 @@ code {
   font-weight: bold;
 }
 
+/*    Form      */
+
 .form{
   display: flex;
   justify-content: center;
@@ -118,4 +122,34 @@ code {
 .error-msg{
   color:crimson;
   margin-bottom: 0px;
+}
+
+/*    Alert     */
+
+.backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.alert-msg{
+  height: 20vh;
+  max-width: 40%;
+  max-height: 80%;
+  margin: 30vh auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
+  background-color: rgb(243, 237, 233);
+  border: 3px solid white;
+}
+
+.alert-msg h1{
+  color: #ff4a4a;
+  text-align: center;
 }

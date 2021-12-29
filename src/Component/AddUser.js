@@ -1,22 +1,27 @@
-import axios from 'axios';
 import { Form, Formik } from 'formik';
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 import * as Yup from 'yup'
-import useApi, { api } from '../Hooks/useApi';
-import { API_KEY, BASE_URL } from './Constants';
+import { useCreateUser } from '../Hooks/useApi';
 import InputCus from './InputCus';
 
 
-
-function AddUser() {
+function AddUser({setAlert}) {
     const queryClient = useQueryClient();
-    const mutation = useMutation( (user) => {return api.post('/', user).then(response => {
-        console.log("Added ID:",response.data.data.id)
-  }).catch(error => {
-        console.log(error.response)
-  })
-  })
+
+    const addOnSuccess = response => {
+        const res = response.data.data
+        setAlert("Added ID:", res.id)
+        queryClient.invalidateQueries()  
+    }
+
+    const addOnError = error => {
+        const error_body = error.response.data.data[0]
+        setAlert(error_body.field + " " + error_body.message)
+    }
+
+    const mutation = useCreateUser(addOnSuccess,addOnError);
+
 
     const initialValues = {
         name: "",
@@ -45,13 +50,6 @@ function AddUser() {
     });
 
     const handleUser = (values) => {
-        let user = {
-            name: values.name,
-            gender: values.gender,
-            email: values.email,
-            status: values.status
-        }
-
         mutation.mutate(JSON.stringify(values));
     } 
 

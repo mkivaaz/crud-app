@@ -1,14 +1,13 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query';
+import React from 'react'
+import { useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {api, useApi} from '../Hooks/useApi'
+import { useApi, useDeleteUser} from '../Hooks/useApi'
 import { actionCreators } from '../Redux/reduxIndex';
 
 
-export default function Users() {
+export default function Users({setAlert}) {
     const users = useApi();
     const queryClient = useQueryClient();
 
@@ -17,23 +16,18 @@ export default function Users() {
     const dispatch = useDispatch();
     const {sortBy} = bindActionCreators(actionCreators, dispatch)
 
+    
+
+    const deleteOnSuccess = () => {
+        queryClient.invalidateQueries()
+        setAlert("User: Deleted")
+    }
     // React Query
-    const mutation = useMutation(async (id) => {return await api.delete(`/${id}`)}, 
-            {
-                onSuccess: () => {
-                    
-                    queryClient.invalidateQueries()                
-                },              
-            })
-
-
+    const mutation = useDeleteUser(deleteOnSuccess);
 
     const handleClick = evt => {
         let id = evt.target.id
-        console.log("Clicked", id)
-        mutation.mutate(id)
-        console.log(mutation)      
-        
+        mutation.mutate(id)     
     }
 
     const handleSort = evt => {
@@ -43,11 +37,7 @@ export default function Users() {
 
     return (
         <div className='user-container'>
-            {!mutation.isIdle ? (<>
-                {mutation.isSuccess && <div>Deleted</div>}
-                {mutation.isError && <div>{mutation.error.message}</div>}            
-            </>): (null)}
-
+            
             <div className='disp-legend'>
                 <div className='disp-name' id='name' onClick={handleSort}>Name</div>
                 <div className='disp-email' id='email' onClick={handleSort}> Email</div>

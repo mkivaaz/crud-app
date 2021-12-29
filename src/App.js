@@ -1,21 +1,22 @@
 import { useState } from "react";
 import AddUser from "./Component/AddUser";
+import Alert from "./Component/Alert";
 import TopBar from "./Component/TopBar";
 import Users from "./Component/Users";
 
 function App() {
-  const [success, setSuccess] = useState(null)
-  const [error, setError] = useState(null)
+  const [alert, setAlert] = useState(null)
+  const [toggleAdd, setToggleAdd] = useState(false)
 
   return (
     <div className="App">
       <header className="App-header">
-        <TopBar/>
-        <AddUser/>
+        <TopBar toggleAdd={toggleAdd} setToggleAdd = {setToggleAdd}/>
+        {toggleAdd && <AddUser setAlert={setAlert} />}
       </header>
       
-      <Users />
-      
+      <Users setAlert={setAlert}/>
+      {alert && <Alert alert={alert} setAlert = {setAlert} />}
 
     </div>
   );

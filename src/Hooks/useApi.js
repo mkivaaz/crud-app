@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {  useQuery} from 'react-query'
+import {  useMutation, useQuery } from 'react-query'
 import { API_KEY, BASE_URL } from '../Component/Constants'
 
 export const api = axios.create({
@@ -7,9 +7,9 @@ export const api = axios.create({
     headers:{
         'Authorization':  'Bearer ' + API_KEY,
         'Content-Type':  'application/json',
-    },
-    
+    },    
 })
+
 
 export function useApi() {
 
@@ -20,24 +20,21 @@ export function useApi() {
                }
         })
         return res.data
-    })  
-
-    // const [data, seData] = useState(null)
-
-    // useEffect(()=> {
-    //     api.get('/').then(res => {
-    //     console.log(res.data)
-    //     seData(res.data)
-    // })
-    // },[])
-
-
-    // const{data, status} = useQuery("data", async () => {
-    //     const res = await fetch(BASE_URL)
-    //     return res.json()
-    // })
+    }) 
     
     return data
+}
+
+
+export function useDeleteUser(onSuccess){
+    return useMutation(async (id) => {return await api.delete(`/${id}`)}, 
+    { onSuccess: onSuccess})
+}
+
+export function useCreateUser(onSuccess, onError){
+    return  useMutation( (user) => {return api.post('/', user).then(onSuccess)
+    .catch(onError)
+  })
 }
 
 
