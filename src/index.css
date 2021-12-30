@@ -14,10 +14,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 .top-container{
   display: flex;
@@ -59,32 +55,36 @@ code {
   display: flex;
   padding: 15px;
   justify-content: flex-start;
-  box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
 }
 
 .disp-name{
-  width: 50%;
+  flex: 3;
   border-right: 1px solid var(--primary); 
   margin-right: 5px;
+  flex-grow: 2;
 }
 
 .disp-email{
-  width: 20%;
+  flex: 2;
   border-right: 1px solid var(--primary); 
   margin-right: 5px;
+  flex-grow: 2;
+  overflow:auto;
 }
 
 .disp-gender{
-  width: 20%;
+  flex: 1;
   border-right: 1px solid var(--primary); 
   margin-right: 5px;
+  flex-grow: 1;
 }
 
 .disp-status{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 10%;
+  flex: 1;
+  flex-grow: 1;
   
 }
 

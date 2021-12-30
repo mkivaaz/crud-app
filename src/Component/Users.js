@@ -16,12 +16,12 @@ export default function Users({setAlert}) {
     const dispatch = useDispatch();
     const {sortBy} = bindActionCreators(actionCreators, dispatch)
 
-    
-
-    const deleteOnSuccess = () => {
+    const deleteOnSuccess = (response) => {
         queryClient.invalidateQueries()
         setAlert("User: Deleted")
+        console.log(response)
     }
+
     // React Query
     const mutation = useDeleteUser(deleteOnSuccess);
 

@@ -11,8 +11,8 @@ function AddUser({setAlert}) {
 
     const addOnSuccess = response => {
         const res = response.data.data
-        setAlert("Added ID:", res.id)
-        queryClient.invalidateQueries()  
+        queryClient.invalidateQueries() 
+        setAlert("Added ID: " + res.id) 
     }
 
     const addOnError = error => {

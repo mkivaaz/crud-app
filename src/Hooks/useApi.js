@@ -32,8 +32,9 @@ export function useDeleteUser(onSuccess){
 }
 
 export function useCreateUser(onSuccess, onError){
-    return  useMutation( (user) => {return api.post('/', user).then(onSuccess)
-    .catch(onError)
+  return  useMutation(async (user) => {return await api.post('/', user)}, {
+      onSuccess: onSuccess,
+      onError: onError
   })
 }
 
